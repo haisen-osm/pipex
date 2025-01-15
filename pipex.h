@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+#include <fcntl.h>
 #include <string.h>
 
 char	**ft_split(char const *s, char c);
@@ -16,6 +17,7 @@ void    free_split(char **arr);
 int ft_strcmp(char *s1, char *s2);
 char *find_path_env(char **env);
 char *get_command_path(char *cmd, char **env);
-void    handle_errors(char *err);
+void    handle_errors(char *err, int flag);
+void    execute_cmd(char *cmd, char **env);
 
 #endif

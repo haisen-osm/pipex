@@ -1,7 +1,7 @@
-{ 
-"[c]": {
-  "editor.defaultFormatter": "keyhr.42-c-format"
-},
+{
+  "[c]": {
+    "editor.defaultFormatter": "keyhr.42-c-format"
+  },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
   "C_Cpp_Runner.debuggerPath": "gdb",
@@ -60,8 +60,8 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
-    "pipex.h": "c"
+    "pipex.h": "c",
+    "stdio.h": "c"
   },
-  "editor.insertSpaces": false,
-
+  "editor.insertSpaces": false
 }
