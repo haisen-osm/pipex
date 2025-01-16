@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/okhourss/Workspace/pipex",
-      "program": "/home/okhourss/Workspace/pipex/build/Debug/outDebug",
+      "cwd": "/home/okhourss/Desktop/pipex_push",
+      "program": "/home/okhourss/Desktop/pipex_push/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

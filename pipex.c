@@ -72,13 +72,13 @@ static char	*try_path(char **path_dirs, char *cmd)
 }
 char *check_command_existence(char *cmd)
 {
-    size_t i = 0;
+    // size_t i = 0;
     
     if (cmd[0] == '/')
     {
-        while (cmd[i] == '/')
-            i++;
-                if (i > 1)
+        // while (cmd[i] == '/')
+        //     i++;
+        //         if (i > 1)
             return NULL;
     }
     return (char *)cmd;
