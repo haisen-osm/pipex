@@ -1,0 +1,1 @@
+/home/okhourss/.nvm/versions/node/v23.5.0/bin

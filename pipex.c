@@ -1,76 +1,4 @@
 #include "pipex.h"
-// #include "pipex.h"
-
-// void exit_hundel()
-// {
-//     perror("Error");
-//     exit(EXIT_FAILURE);
-// }
-
-// int main (int argc, const char *argv[], char *env[])
-// {
-//     (void)argv;
-//     if (argc != 5)
-//         handle_errors("args not enough", 1);
-//     int fd[2];
-    
-//     if(pipe(fd) == -1)
-//     {
-//         perror("Error:");
-//         exit(1);
-//     }
-//     int id = fork();
-//     if (id < 0)
-//     {
-//         perror("Error:");
-//         exit(1);
-//     }
-//     if (id == 0)
-//     {
-//         close(fd[0]);
-//         int file = open(argv[1], O_RDONLY);
-//         if (file < 0)
-//             exit_hundel();
-//         dup2(file, 0);
-//         dup2(fd[1], 1);
-//         close(fd[1]);
-//         execute_cmd((char *)argv[2],env);
-//     }
-//     else {
-//         wait(NULL);
-//         close(fd[1]);
-//         int file = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-//         if (file < 0)
-//             exit_hundel();
-//         dup2(fd[0], 0);
-//         dup2(file, 1);
-//         close(fd[0]);
-//         execute_cmd((char *)argv[3],env);
-//     }
-// }
-
-// void    execute_cmd(char *cmd, char **env)
-// {  
-//     char **argv_content;
-//     char *cmd_path;
-
-//     argv_content = ft_split(cmd, ' ');
-//     if (!argv_content)
-//         handle_errors("ft_split failed at allocation", 1);
-//     cmd_path = get_command_path(argv_content[0], env);
-//     if (!cmd_path)
-//     {
-//         free_split(argv_content);
-//         handle_errors("can't get command path", 1);
-//     }
-//     int check_exe_success = execve(cmd_path, argv_content, env);
-//     if (check_exe_success == -1)
-//     {
-//         free_split(argv_content);
-//         free(cmd_path);
-//         handle_errors("error while excuting command",1);
-//     }
-// }
 
 void    free_split(char **arr)
 {
@@ -95,54 +23,6 @@ int ft_strcmp(char *s1, char *s2)
 		i++;
 	return (s1[i] - s2[i]);    
 }
-// char *find_path_env(char **env)
-// {
-//     int i  = 0;
-//     while (env[i])
-//     {
-//         char **env_col = ft_split(env[i], '=');
-//         if (ft_strcmp(env_col[0],"PATH") == 0)
-//         {
-//             char *returned_str = ft_strdup(env_col[1]);
-//             free_split(env_col);
-//             return (returned_str);
-//         }
-//         free_split(env_col);
-//         i++;
-//     }
-//     return (NULL);
-    
-// }
-
-// char *get_command_path(char *cmd, char **env)
-// {
-//     if (access(cmd, F_OK | X_OK) == 0)
-//         return (ft_strdup(cmd));
-//     char *path = find_path_env(env);
-//     if (!path)
-//         return NULL;
-//     char **ft_split_path = ft_split(path, ':');
-//     free(path);
-//     if (!ft_split_path)
-//         return NULL;
-//     int i = 0;
-//     while (ft_split_path[i])
-//     {
-//         char *new_cmd = ft_strjoin("/", cmd);
-//         char *cmd_path = ft_strjoin(ft_split_path[i], new_cmd);
-//         free(new_cmd); 
-
-//         if (access(cmd_path, F_OK | X_OK) == 0)
-//         {
-//             free_split(ft_split_path); 
-//             return (cmd_path); 
-//         }
-//         free(cmd_path); 
-//         i++;
-//     }
-//     free_split(ft_split_path);
-//     return NULL;
-// }
 
 char *find_path_env(char **env)
 {
@@ -190,7 +70,19 @@ static char	*try_path(char **path_dirs, char *cmd)
     }
     return (NULL);
 }
-
+char *check_command_existence(char *cmd)
+{
+    size_t i = 0;
+    
+    if (cmd[0] == '/')
+    {
+        while (cmd[i] == '/')
+            i++;
+                if (i > 1)
+            return NULL;
+    }
+    return (char *)cmd;
+}
 char *get_command_path(char *cmd, char **env)
 {
     char *path;
@@ -199,6 +91,8 @@ char *get_command_path(char *cmd, char **env)
 
     if (access(cmd, F_OK | X_OK) == 0)
         return (ft_strdup(cmd));
+    if (check_command_existence(cmd) == NULL)
+        return (NULL);
     path = find_path_env(env);
     if (!path)
         return (NULL);
@@ -211,16 +105,6 @@ char *get_command_path(char *cmd, char **env)
         free_split(path_dirs);
     return (cmd_path);
 }
-
-// void    handle_errors(char *err, int flag)
-// {
-//     write(2, "Error: ", 7);
-//     write(2, err, ft_strlen(err));
-//     write(2, "\n", 1);
-//     if (flag == 1)
-//     exit(1);
-// }
-
 
 static void	cleanup_and_exit(char *error_msg, int exit_code)
 {
@@ -278,6 +162,7 @@ static void	parent_process(int *fd, const char *outfile, const char *cmd, char *
     }
     close(file);
     close(fd[0]);
+    // exit(1);
     execute_cmd((char *)cmd, env);
     cleanup_and_exit("Command execution failed", EXIT_FAILURE);
 }
@@ -297,7 +182,7 @@ void	execute_cmd(char *cmd, char **env)
         cleanup_and_exit("Empty command", EXIT_FAILURE);
     }
 
-    cmd_path = get_command_path(argv_content[0], env);
+    cmd_path = get_command_path(argv_content[0], env); // /usr/local/bin/cat
     if (!cmd_path)
     {
         free_split(argv_content);
@@ -317,11 +202,11 @@ int	main(int argc, const char *argv[], char *env[])
     pid_t	pid;
 
     if (argc != 5)
-        cleanup_and_exit("Usage: ./pipex infile cmd1 cmd2 outfile", EXIT_FAILURE);
+        cleanup_and_exit("Usage: ./pipex infile cmd1 cmd2 outfile\narguments not enough!", EXIT_FAILURE);
 
     if (pipe(fd) == -1)
         cleanup_and_exit("Pipe creation failed", EXIT_FAILURE);
-
+ 
     pid = fork();
     if (pid < 0)
         cleanup_and_exit("Fork failed", EXIT_FAILURE);
@@ -330,6 +215,5 @@ int	main(int argc, const char *argv[], char *env[])
         child_process(fd, argv[1], argv[2], env);
     else
         parent_process(fd, argv[4], argv[3], env);
-
     return (0);
 }
