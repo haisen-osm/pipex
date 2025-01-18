@@ -1,9 +1,20 @@
+NAME = pipex
+SRCS = pipex.c ft_split.c ft_strlen.c ft_strdup.c ft_substr.c ft_strjoin.c pipex_utils.c ft_strcmp.c
+OBJS = $(SRCS:.c=.o)
 CC = cc
+CFLAGS = -Wall -Wextra -Werror -g
 
-FLAGS = -Wall -Wextra -Werror
+all: $(NAME)
 
-SRCFILES = pipex.c ft_split.c ft_strlen.c ft_strdup.c ft_substr.c ft_strjoin.c
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-all: $(SRCFILES)
-	$(CC) $(FLAGS) $(SRCFILES) -g -o pipex
+clean:
+	rm -f $(OBJS)
 
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
