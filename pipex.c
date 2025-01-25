@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okhourss <okhourss@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: okhourss <okhourss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 21:07:58 by okhourss          #+#    #+#             */
-/*   Updated: 2025/01/18 21:07:58 by okhourss         ###   ########.fr       */
+/*   Updated: 2025/01/25 07:44:09 by okhourss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	child_process(int *fd, const char *infile, const char *cmd, char **env)
 	close(file);
 	close(fd[1]);
 	execute_cmd((char *)cmd, env);
-	cleanup_and_exit("Command execution failed", EXIT_FAILURE);
+	cleanup_and_exit("command execution failed", EXIT_FAILURE);
 }
 
 void	second_child_process(int *fd, const char *outfile, const char *cmd,
@@ -68,7 +68,7 @@ void	second_child_process(int *fd, const char *outfile, const char *cmd,
 	close(file);
 	close(fd[0]);
 	execute_cmd((char *)cmd, env);
-	cleanup_and_exit("Command execution failed", EXIT_FAILURE);
+	cleanup_and_exit("command execution failed", EXIT_FAILURE);
 }
 
 void	execute_cmd(char *cmd, char **env)
@@ -88,7 +88,7 @@ void	execute_cmd(char *cmd, char **env)
 	if (!cmd_path)
 	{
 		free_split(argv_content);
-		cleanup_and_exit("Command not found", EXIT_FAILURE);
+		cleanup_and_exit("command not found", EXIT_FAILURE);
 	}
 	execve(cmd_path, argv_content, env);
 	free(cmd_path);

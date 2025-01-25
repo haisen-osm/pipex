@@ -7,9 +7,9 @@
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
-      "externalConsole": true,
-      "cwd": "c:/Users/Asus/Workshop/pipex_push",
-      "program": "c:/Users/Asus/Workshop/pipex_push/build/Debug/outDebug",
+      "externalConsole": false,
+      "cwd": "/home/okhourss/pipex",
+      "program": "/home/okhourss/pipex/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

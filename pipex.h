@@ -6,7 +6,7 @@
 /*   By: okhourss <okhourss@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 20:50:06 by okhourss          #+#    #+#             */
-/*   Updated: 2025/01/18 21:08:36 by okhourss         ###   ########.fr       */
+/*   Updated: 2025/01/24 07:42:16 by okhourss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ char	**ft_split(char const *s, char c);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strdup(const char *str);
 char	*ft_strjoin(char *s1, char *s2);
-size_t ft_strlen(const char *str);
-char *ft_substr(char const *s,
-		unsigned int start, size_t len);
+size_t	ft_strlen(const char *str);
+char	*ft_substr(char const *s,
+			unsigned int start, size_t len);
 
 #endif
